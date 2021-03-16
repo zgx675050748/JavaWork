@@ -7,6 +7,17 @@ public class Employee extends EmployeeKey {
 
     private Integer dId;
 
+    //希望查询员工的同时部们信息也查询
+    private Department department;
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     public String getGender() {
         return gender;
     }
