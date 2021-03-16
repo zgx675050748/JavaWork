@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+<!--    注入复用-->
+    <util:list id="courseList">
+        <value>张三</value>
+        <value>小三</value>
+    </util:list>
+    <bean id="stu" class="com.laoliu.spring5.collectiontype.Stu">
+<!--        注入复用-->
+        <property name="courses" ref="courseList"></property>
+<!--        注入复用-->
+        <property name="list" ref="courseList"></property>
+        <property name="maps">
+            <map>
+                <entry key="Java" value-ref="courser1"></entry>
+                <entry key="Php" value-ref="courser2"></entry>
+            </map>
+        </property>
+        <property name="sets">
+            <set>
+                <value>MySQL</value>
+                <value>Redis</value>
+            </set>
+        </property>
+        <property name="courseList">
+            <list>
+<!--            将对象注入数组-->
+                <ref bean="courser1"></ref>
+                <ref bean="courser2"></ref>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="courser1" class="com.laoliu.spring5.collectiontype.Course" scope="prototype">
+        <property name="cname" value="java"></property>
+    </bean>
+    <bean id="courser2" class="com.laoliu.spring5.collectiontype.Course" >
+        <property name="cname" value="java"></property>
+    </bean>
+</beans>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="user" class="com.laoliu.spring5.User">
+        <!--    有参构造注入
+                在有参构造注入时，不使用无参构造创建对象
+        -->
+        <constructor-arg name="oname" value="123456"></constructor-arg>
+        <!--    set方法注入    -->
+        <property name="str" value="123456"></property>
+    </bean>
+</beans>

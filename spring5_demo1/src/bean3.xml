@@ -1,0 +1,14 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="emp" class="com.laoliu.spring5.dept.Emp">
+        <property name="ename" value="张三"></property>
+        <property name="gander" value="女"></property>
+        <property name="dept" ref="dept"></property>
+        <property name="dept.dname" value="技术部"></property>
+    </bean>
+
+    <bean id="dept" class="com.laoliu.spring5.dept.Dept">
+    </bean>
+</beans>
