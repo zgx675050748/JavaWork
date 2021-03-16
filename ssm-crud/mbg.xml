@@ -5,6 +5,10 @@
 
 <generatorConfiguration>
     <context id="DB2Tables" targetRuntime="MyBatis3">
+<!--    阻止生成注释-->
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
 <!--        配置数据库信息-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://localhost:3306/ssm_crud"
@@ -24,7 +28,7 @@
         </javaModelGenerator>
 
 <!--        指定sql映射文件生成的位置-->
-        <sqlMapGenerator targetPackage="test.xml"
+        <sqlMapGenerator targetPackage="mapper"
                          targetProject=".\src\main\resources">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
