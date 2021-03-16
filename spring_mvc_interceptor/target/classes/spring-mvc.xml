@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                           http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+                           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+">
+
+    <mvc:annotation-driven/>
+
+    <!--配置内部资源解析器-->
+    <bean  id="viewResolver"
+           class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--    框架如果找不到，求助tomcat找到静态资源-->
+    <mvc:default-servlet-handler/>
+<!--    组件扫描-->
+    <context:component-scan base-package="com.laoliu.controller"/>
+<!--    配置拦截器，拦截器是基于spring的aop实现的-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+
+<!--            对哪些资源执行拦截操作，/**表示对所有目标资源都执行拦截操作-->
+            <mvc:mapping path="/**"/>
+
+<!--            编写的拦截器路径-->
+            <bean class="com.laoliu.interceptor.MyInterceptor1"/>
+        </mvc:interceptor>
+        
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.laoliu.interceptor.MyInterceptor2"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>
