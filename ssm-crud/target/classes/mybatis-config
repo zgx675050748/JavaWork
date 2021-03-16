@@ -7,8 +7,5 @@
     <settings>
         <setting name="mapUnderScoreToCamelCase" value="true"/>
     </settings>
-    <typeAliases>
-        <package name="com.laoliu.crud.bean"/>
-    </typeAliases>
     
 </configuration>
