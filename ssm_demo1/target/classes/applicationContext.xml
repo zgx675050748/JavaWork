@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.laoliu">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+<!--    加载properties文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+
+<!--    加载数据源-->
+    <bean id="dataSoruce"
+          class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driverClassName}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+<!--    配置SqlSession工厂-->
+    <bean id="sqlSessionFactoryBean"
+          class="org.mybatis.spring.SqlSessionFactoryBean">
+<!--        指定连接池-->
+        <property name="dataSource" ref="dataSoruce"/>
+<!--        指定核心配置文件位置-->
+        <property name="configLocation"
+                  value="classpath:sqlMapConfig-spring.xml"/>
+<!--        指定mapper映射xml文件位置-->
+        <property name="mapperLocations"
+                  value="classpath:mapper/*.xml"/>
+    </bean>
+
+<!--    扫描mapper接口，生成实例，如果接口和mapper映射xml文件路径相同，
+        不需使用上述mapperLocations单独配置映射xml
+文件-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.laoliu.mapper"/>
+    </bean>
+
+
+<!--    配置事务控制-->
+    <bean id="transactionManager"
+            class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSoruce"/>
+    </bean>
+
+    <!--    开启事务注解-->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+</beans>
