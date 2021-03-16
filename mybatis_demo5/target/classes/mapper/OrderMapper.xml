@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.laoliu.mapper.OrderMapper">
+    <resultMap id="orderMap" type="Order">
+<!--        一对一查询
+            手动指定字段与实体的映射关系
+            column：数据表字段名称
+            property：实体属性名称
+-->
+        <id column="oid" property="id"/>
+        <result column="ordertime" property="ordertime"/>
+        <result column="total" property="total"/>
+<!--        <result column="uid" property="User.id"/>-->
+<!--        <result column="username" property="User.username"/>-->
+<!--        <result column="password" property="User.password"/>-->
+<!--        <result column="birthday" property="User.birthday"/>-->
+
+<!--        property：当前实体（Order）中的属性名称（private User user）
+            javaType：当前实体（Order）中的属性类型（User）
+-->
+        <association property="user" javaType="User">
+                    <result column="uid" property="id"/>
+                    <result column="username" property="username"/>
+                    <result column="password" property="password"/>
+                    <result column="birthday" property="birthday"/>
+        </association>
+    </resultMap>
+    <select id="findAllByOrder" resultMap="orderMap">
+        SELECT *,o.id oid FROM orders o,`user` u WHERE o.uid=u.id
+    </select>
+</mapper>
+

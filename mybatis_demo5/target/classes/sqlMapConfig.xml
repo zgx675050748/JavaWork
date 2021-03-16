@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <properties resource="jdbc.properties"/>
+
+<!--    自定义别名,顺序不能错-->
+    <typeAliases>
+        <typeAlias type="com.laoliu.domain.User" alias="User"/>
+        <typeAlias type="com.laoliu.domain.Order" alias="Order"/>
+        <typeAlias type="com.laoliu.domain.Role" alias="Role"/>
+    </typeAliases>
+
+<!--    自定义注册类型处理器-->
+    <typeHandlers>
+        <typeHandler handler="com.laoliu.handler.DateTypeHandler"/>
+    </typeHandlers>
+
+<!--&lt;!&ndash;    配置分页助手插件&ndash;&gt;-->
+<!--    <plugins>-->
+<!--        <plugin interceptor="com.github.pagehelper.PageHelper">-->
+<!--            <property name="dialect" value="mysql"/>-->
+<!--        </plugin>-->
+<!--    </plugins>-->
+
+<!--    数据源环境-->
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driverClassName}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+<!--    加载映射文件-->
+    <mappers>
+<!--        使用注解开发时Mapper.xml文件的存储路径不要与mapper接口路径相同，否则会因为全部扫描，导致报错
+            例如xml文件在resources下的com.laoliu.mapper
+               mapper接口在java下的com.laoliu.mapper
+               在使用 <package name="com.laoliu.mapper"/>时，会出现扫描异常产生不可预知的错误
+            -->
+<!--        <mapper resource="mapper/UserMapper.xml"/>-->
+<!--        <mapper resource="mapper/OrderMapper.xml"/>-->
+        <package name="com.laoliu.mapper"/>
+    </mappers>
+
+    
+</configuration>
