@@ -62,11 +62,11 @@ public class MvcTest {
         for (int i :navigatepageNums) {
             System.out.print(i);
         }
-
+        System.out.println();
         //获取员工数据
         List<Employee> list = pageInfo.getList();
         for (Employee employee :list) {
-            System.out.println("ID："+employee.getEmpId()+"姓名："+employee.getEmpName());
+            System.out.println("ID："+employee.getEmpId()+"姓名："+employee.getEmpName()+"所在部门："+employee.getDepartment().getDeptName());
         }
 
     }
