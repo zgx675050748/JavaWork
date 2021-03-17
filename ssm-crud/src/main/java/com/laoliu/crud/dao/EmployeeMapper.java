@@ -4,8 +4,11 @@ import com.laoliu.crud.bean.Employee;
 import com.laoliu.crud.bean.EmployeeExample;
 import com.laoliu.crud.bean.EmployeeKey;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+@Mapper
 public interface EmployeeMapper {
     int countByExample(EmployeeExample example);
 

@@ -113,7 +113,7 @@
       distinct
     </if>
     <include refid="Base_Column_List_Dept" />
-    from tbl_emp e left join tbl_dept d on e.'d_id'=d.'dept_id'
+    from tbl_emp e left join tbl_dept d on e.d_id=d.dept_id
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -124,7 +124,7 @@
   <select id="selectByPrimaryKeyWithDept" resultMap="BaseResultMapWithDept" parameterType="com.laoliu.crud.bean.EmployeeKey" >
     select
     <include refid="Base_Column_List_Dept" />
-    from tbl_empe left join tbl_dept d on e.'d_id'=d.'dept_id'
+    from tbl_empe left join tbl_dept d on e.d_id=d.dept_id
     where emp_id = #{empId,jdbcType=INTEGER}
     and emp_name = #{empName,jdbcType=VARCHAR}
   </select>
