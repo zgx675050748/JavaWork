@@ -39,6 +39,7 @@
                             <input type="text" class="form-control"
                                    id="empName" placeholder="empName"
                                    name="empName">
+                            <span class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -47,6 +48,7 @@
                         <div class="col-sm-10">
                             <input type="email" class="form-control"
                                    id="email" placeholder="Email" name="email">
+                            <span class="help-block"></span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -176,7 +178,7 @@
         $("#info").empty();
         $("#info").append(
             "当前"+data.extend.pageInfo.pageNum+"页，总"+data.extend.pageInfo.pages+"页，总"+data.extend.pageInfo.total+"条记录");
-        totalRecord = data.extend.pageInfo.total;
+        totalRecord = data.extend.pageInfo.total+1;
         var nlist = document.getElementsByTagName("li");
         if(data.extend.pageInfo.isFirstPage){
             nlist[0].setAttribute("class","disabled");
@@ -252,6 +254,8 @@
     }
 
     $("#saveEmp").click(function (){
+        //对数据进行校验
+        if(!validate_add_form()) return false;
         //将模态框中表单数据提交
         $.ajax({
             url:"${pageContext.request.contextPath}/saveemp",
@@ -265,6 +269,41 @@
             }
         });
     });
+
+    //校验表单数据
+    function validate_add_form(){
+        var flag1;
+        var flag2;
+        var empName = $("#empName").val();
+        var regName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5})/;
+        $("#empName").parent().removeClass("has-error has-success");
+        $("#email").parent().removeClass("has-error has-success");
+        if(!regName.test(empName)){
+            //alert("用户名可以是2-5位中文或者6-16位英文和数字组合");
+            $("#empName").parent().addClass("has-error");
+            $("#empName").next("span").text("用户名可以是2-5位中文或者6-16位英文和数字组合");
+            flag1 = false;
+        }else {
+            $("#empName").parent().addClass("has-success");
+            $("#empName").next("span").text("");
+            flag1 = true;
+        }
+
+        var email = $("#email").val();
+        var regEmail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+        if(!regEmail.test(email)){
+            //alert("请输入正确的邮箱格式");
+            $("#email").parent().addClass("has-error");
+            $("#email").next("span").text("请输入正确的邮箱格式");
+            flag2 = false;
+        }
+        else{
+            $("#email").parent().addClass("has-success");
+            $("#email").next("span").text("");
+            flag2 = true;
+        }
+        return flag1&&flag2;
+    }
 </script>
 </body>
 </html>
