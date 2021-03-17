@@ -24,6 +24,15 @@ import java.util.List;
 @Controller
 public class EmployeeController {
 
+
+    /*
+    保存员工信息
+     */
+    public Msg saveEmp(){
+        return null;
+    }
+
+
     /*
     需要导入 jackson包
     将PageInfo对象转换为json格式数据，传入客户端

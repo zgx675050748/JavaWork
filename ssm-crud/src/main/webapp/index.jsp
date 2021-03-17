@@ -21,6 +21,72 @@
             src="${pageContext.request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+<!-- 新建模态框 -->
+<div class="modal fade" id="empAddModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">员工添加</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label for="empName"
+                               class="col-sm-2 control-label">empName</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control"
+                                   id="empName" placeholder="empName"
+                                   name="empName">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email"
+                               class="col-sm-2 control-label">email</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control"
+                                   id="email" placeholder="Email" name="email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label
+                               class="col-sm-2 control-label">gender</label>
+                        <div class="col-sm-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="gender"
+                                       id="gender1" value="男"> 男
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="gender"
+                                       id="gender2" value="女"> 女
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label
+                                class="col-sm-2 control-label">deptName</label>
+                        <div class="col-sm-4">
+<%--                            数据库查询，提交部门id--%>
+                            <select class="form-control" id="deptName"
+                                    name="dId">
+
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">关闭</button>
+                <button type="button" id="saveEmp" class="btn btn-primary">保存
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <%--    搭建显示页面--%>
 <div class="container">
     <div class="row">
@@ -30,7 +96,7 @@
     </div>
     <div class="row">
         <div class="col-md-3 col-md-offset-9">
-            <button class="btn btn-primary">新增</button>
+            <button class="btn btn-primary" id="addBtn">新增</button>
             <button class="btn btn-danger">删除</button>
         </div>
     </div>
@@ -151,7 +217,6 @@
             data:"pn="+pageNum,
             type:"get",
             success:function(data){
-                console.log(data);
                 //1.解析并显示员工数据
                 build_emps_table(data);
                 //2.解析并显示分页信息
@@ -159,6 +224,34 @@
             }
         });
     }
+
+    $("#addBtn").click(function (){
+        $("#deptName").empty();
+        //发送ajax查询部门信息,显示在下拉列表
+            getDepts();
+        //弹出模态框
+        $("#empAddModel").modal({
+            backdrop:"static"
+        });
+    });
+
+    //查询所有部门信息显示在下拉列表
+    function getDepts(){
+        $.ajax({
+            url:"${pageContext.request.contextPath}/depts",
+            type:"GET",
+            success:function (data){
+                for (var x in data.extend.depts) {
+                    $("#deptName").append($("<option value="+data.extend.depts[x].deptId+"></option>").append(data.extend.depts[x].deptName))
+                }
+            }
+        });
+    }
+
+    $("#saveEmp").click(function (){
+        //将模态框中表单数据提交
+        
+    });
 </script>
 </body>
 </html>
