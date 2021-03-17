@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,12 +25,17 @@ import java.util.List;
 @Controller
 public class EmployeeController {
 
+    @Autowired
+    EmployeeService employeeService;
 
     /*
     保存员工信息
      */
-    public Msg saveEmp(){
-        return null;
+    @RequestMapping(value="/saveemp" ,method = RequestMethod.POST)
+    @ResponseBody
+    public Msg saveEmp(Employee employee){
+        employeeService.saveEmp(employee);
+        return Msg.success();
     }
 
 
@@ -59,8 +65,6 @@ public class EmployeeController {
     查询员工数据（分页查询）
      */
 
-    @Autowired
-    EmployeeService employeeService;
 
 
     //@RequestMapping("/emps")

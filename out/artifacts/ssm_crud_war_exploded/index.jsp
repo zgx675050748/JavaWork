@@ -55,7 +55,7 @@
                         <div class="col-sm-10">
                             <label class="radio-inline">
                                 <input type="radio" name="gender"
-                                       id="gender1" value="男"> 男
+                                       id="gender1" value="男" checked> 男
                             </label>
                             <label class="radio-inline">
                                 <input type="radio" name="gender"
@@ -79,7 +79,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default"
                         data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="button" id="saveEmp" class="btn btn-primary">保存
+                </button>
             </div>
         </div>
     </div>
@@ -147,6 +148,8 @@
     </div>
 </div>
 <script type="text/javascript">
+    //总记录数
+    var totalRecord;
     //1.页面加载完成以后，直接发送一个ajax请求，获取分页数据
     $(sendAjax(1));
 
@@ -173,6 +176,7 @@
         $("#info").empty();
         $("#info").append(
             "当前"+data.extend.pageInfo.pageNum+"页，总"+data.extend.pageInfo.pages+"页，总"+data.extend.pageInfo.total+"条记录");
+        totalRecord = data.extend.pageInfo.total;
         var nlist = document.getElementsByTagName("li");
         if(data.extend.pageInfo.isFirstPage){
             nlist[0].setAttribute("class","disabled");
@@ -246,6 +250,21 @@
             }
         });
     }
+
+    $("#saveEmp").click(function (){
+        //将模态框中表单数据提交
+        $.ajax({
+            url:"${pageContext.request.contextPath}/saveemp",
+            type:"POST",
+            data:$("#empAddModel form").serialize(),
+            success:function (data){
+                //1.关闭模态框
+                $("#empAddModel").modal('hide');
+                //2.去到最后一页，发送ajax请求，显示最后一页数据即可
+                sendAjax(totalRecord);
+            }
+        });
+    });
 </script>
 </body>
 </html>
