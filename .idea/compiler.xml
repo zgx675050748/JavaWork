@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ssm-crud" />
+        <module name="java_demo5" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="ssm-crud" target="1.8" />
+      <module name="java_demo5" target="8" />
+      <module name="ssm-crud" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

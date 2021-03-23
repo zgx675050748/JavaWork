@@ -1,9 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="Spring" name="Spring">
+      <configuration>
+        <fileset id="fileset" name="Spring Application Context" removed="false">
+          <file>file://$MODULE_DIR$/out/artifacts/ssm_crud_war_exploded/WEB-INF/dispatcherServlet-servlet.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo2/src/spring-config3.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo2/src/spring-config5.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo3/src/spring-config2.xml</file>
+          <file>file://$MODULE_DIR$/out/artifacts/ssm_crud_war_exploded/WEB-INF/classes/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo3/src/spring-config1.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo2/src/spring-config1.xml</file>
+          <file>file://$MODULE_DIR$/spring-mvc-test1/src/main/resources/spring-mvc.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo1/src/bean1.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo1/src/bean3.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo1/src/bean2.xml</file>
+          <file>file://$MODULE_DIR$/spring_mvc_interceptor/target/classes/spring-mvc.xml</file>
+          <file>file://$MODULE_DIR$/spring_mvc1/target/classes/spring-mvc.xml</file>
+          <file>file://$MODULE_DIR$/spring-mvc-test1/target/classes/spring-mvc.xml</file>
+          <file>file://$MODULE_DIR$/spring_mvc1/target/classes/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/ssm_demo1/src/main/resources/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo5/src/spring-config1.xml</file>
+          <file>file://$MODULE_DIR$/spring_mvc1/src/main/resources/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo6/src/spring-config1.xml</file>
+          <file>file://$MODULE_DIR$/ssm_demo1/src/main/resources/spring-mvc.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo2/src/spring-config2.xml</file>
+          <file>file://$MODULE_DIR$/ssm_demo1/target/classes/spring-mvc.xml</file>
+          <file>file://$MODULE_DIR$/spring_mvc_interceptor/src/main/resources/spring-mvc.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo2/src/spring-config4.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo1/web/WEB-INF/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/spring-mvc-test1/src/main/resources/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/ssm_demo1/target/classes/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo4/src/spring-config1.xml</file>
+          <file>file://$MODULE_DIR$/spring_mvc1/src/main/resources/spring-mvc.xml</file>
+          <file>file://$MODULE_DIR$/spring-mvc-test1/target/classes/applicationContext.xml</file>
+          <file>file://$MODULE_DIR$/spring5_demo1/web/WEB-INF/dispatcher-servlet.xml</file>
+        </fileset>
+      </configuration>
+    </facet>
+  </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

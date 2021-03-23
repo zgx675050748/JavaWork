@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/java_demo5/java_demo5.iml" filepath="$PROJECT_DIR$/java_demo5/java_demo5.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/javawork.iml" filepath="$PROJECT_DIR$/.idea/javawork.iml" />
       <module fileurl="file://$PROJECT_DIR$/ssm-crud/ssm-crud.iml" filepath="$PROJECT_DIR$/ssm-crud/ssm-crud.iml" />
     </modules>
