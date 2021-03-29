@@ -2,6 +2,7 @@ package com.laoliu.crud.service;
 
 
 import com.laoliu.crud.bean.Employee;
+import com.laoliu.crud.bean.EmployeeExample;
 import com.laoliu.crud.dao.EmployeeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,30 @@ public class EmployeeService {
     }
 
     /*
-    员工保存
+    员工保存0
      */
     public void saveEmp(Employee employee) {
         employeeMapper.insertSelective(employee);
+    }
+
+    public Employee getEmp(Integer id) {
+        Employee employee = employeeMapper.selectByPrimaryKey(id);
+        return employee;
+    }
+
+    public void updateEmp(Employee employee) {
+        employeeMapper.updateByPrimaryKeySelective(employee);
+    }
+
+    public void delEmpById(Integer id) {
+        employeeMapper.deleteByPrimaryKey(id);
+    }
+
+    public void delBatchEmps(List<Integer> idList) {
+        EmployeeExample example = new EmployeeExample();
+        EmployeeExample.Criteria criteria = example.createCriteria();
+        criteria.andEmpIdIn(idList);
+        //delete from xxx whrere emp_id in(x ,x ,x);
+        employeeMapper.deleteByExample(example);
     }
 }

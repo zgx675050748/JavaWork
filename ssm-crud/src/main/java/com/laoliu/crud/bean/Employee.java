@@ -1,12 +1,20 @@
 package com.laoliu.crud.bean;
 
+
+import javax.validation.constraints.Pattern;
+
 public class Employee extends EmployeeKey {
     private Integer empId;
 
     private String gender;
 
+    @Pattern(regexp = "^([a-zA-Z0-9]+[_|\\_|\\.]?)*[a-zA-Z0-9]+@" +
+            "([a-zA-Z0-9]+[_|\\_|\\.]?)*[a-zA-Z0-9]+\\.[a-zA-Z]{2,3}$",
+            message = "邮箱格式错误")
     private String email;
 
+    @Pattern(regexp = "(^[a-zA-Z0-9_-]{6,16}$)|(^[\\u2E80-\\u9FFF]{2,5})",
+            message = "用户名必须是2-5位中文或者6-16位英文和数字组合")
     private String empName;
 
     private Integer dId;

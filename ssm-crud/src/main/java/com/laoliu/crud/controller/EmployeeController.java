@@ -8,12 +8,15 @@ import com.laoliu.crud.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author LaoLiu <br/>
@@ -29,11 +32,59 @@ public class EmployeeController {
     EmployeeService employeeService;
 
     /*
+    批量删除：1-2-3
+    单个删除：1
+     */
+    @RequestMapping(value = "/emp/{id}",method = RequestMethod.DELETE)
+    @ResponseBody
+    public Msg delEmpById(@PathVariable(value = "id") String ids){
+        if (ids.contains("-")){
+            List<Integer> idList = new ArrayList<>();
+            for (String s : ids.split("-")) {
+                idList.add(Integer.parseInt(s));
+            }
+            employeeService.delBatchEmps(idList);
+        }else {
+            int id = Integer.parseInt(ids);
+            employeeService.delEmpById(id);
+        }
+        return Msg.success();
+    }
+
+    /*
+    更新员工
+     */
+    @RequestMapping(value = "/emp/{empId}",method = RequestMethod.PUT)
+    @ResponseBody
+    public Msg updateEmp(Employee employee){
+
+        employeeService.updateEmp(employee);
+        return Msg.success();
+    }
+
+    @RequestMapping(value = "/emp/{id}",method = RequestMethod.GET)
+    @ResponseBody
+    public Msg getEmp(@PathVariable("id") Integer id){
+        Employee employee = employeeService.getEmp(id);
+        return Msg.success().add("emp",employee);
+    }
+
+    /*
     保存员工信息
+
      */
     @RequestMapping(value="/saveemp" ,method = RequestMethod.POST)
     @ResponseBody
-    public Msg saveEmp(Employee employee){
+    public Msg saveEmp(@Valid Employee employee, BindingResult result){
+        if (result.hasErrors()){
+            Map<String, Object> map = new HashMap<String, Object>();
+            for (FieldError fieldError : result.getFieldErrors()) {
+                System.out.println("错误的字段"+fieldError.getField());
+                System.out.println("错误信息"+fieldError.getDefaultMessage());
+                map.put(fieldError.getField(),fieldError.getDefaultMessage());
+            }
+            return Msg.fail().add("errorFields",map);
+        }
         employeeService.saveEmp(employee);
         return Msg.success();
     }
@@ -50,7 +101,7 @@ public class EmployeeController {
         //查询所有，不需要条件，传入参数null即可
         //数据非常多，没有分页，引入PageHelper分页插件
         //在查询之前只需调用，传入页码和每页记录条数
-        PageHelper.startPage(pn,5);
+        PageHelper.startPage(pn,10);
         //startPage后紧跟的查询，就是一个分页查询
         List<Employee> employeeList = employeeService.getAll();
         //可以使用PageInfo对查出数据进行包装，将pageInfo交给页面

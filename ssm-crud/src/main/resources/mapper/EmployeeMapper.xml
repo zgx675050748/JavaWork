@@ -99,12 +99,12 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.laoliu.crud.bean.EmployeeKey" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+          parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from tbl_emp
-    where emp_id = #{empId,jdbcType=INTEGER}
-      and emp_name = #{empName,jdbcType=VARCHAR}
+    where emp_id = #{key}
   </select>
 <!--  查询员工时带部门信息-->
   <select id="selectByExampleWithDept" resultMap="BaseResultMapWithDept" parameterType="com.laoliu.crud.bean.EmployeeExample" >
@@ -120,19 +120,21 @@
     <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
+    <if test="orderByClause == null">
+      order by e.emp_id
+    </if>
   </select>
-  <select id="selectByPrimaryKeyWithDept" resultMap="BaseResultMapWithDept" parameterType="com.laoliu.crud.bean.EmployeeKey" >
+  <select id="selectByPrimaryKeyWithDept" resultMap="BaseResultMapWithDept"
+          parameterType="java.lang.Integer" >
     select
     <include refid="Base_Column_List_Dept" />
-    from tbl_empe left join tbl_dept d on e.d_id=d.dept_id
-    where emp_id = #{empId,jdbcType=INTEGER}
-    and emp_name = #{empName,jdbcType=VARCHAR}
+    from tbl_emp e left join tbl_dept d on e.d_id=d.dept_id
+    where e.emp_id = #{key}
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="com.laoliu.crud.bean.EmployeeKey" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tbl_emp
-    where emp_id = #{empId,jdbcType=INTEGER}
-      and emp_name = #{empName,jdbcType=VARCHAR}
+    where emp_id = #{key}
   </delete>
   <delete id="deleteByExample" parameterType="com.laoliu.crud.bean.EmployeeExample" >
     delete from tbl_emp
@@ -240,7 +242,6 @@
       </if>
     </set>
     where emp_id = #{empId,jdbcType=INTEGER}
-      and emp_name = #{empName,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.laoliu.crud.bean.Employee" >
     update tbl_emp
@@ -248,6 +249,5 @@
       email = #{email,jdbcType=VARCHAR},
       d_id = #{dId,jdbcType=INTEGER}
     where emp_id = #{empId,jdbcType=INTEGER}
-      and emp_name = #{empName,jdbcType=VARCHAR}
   </update>
 </mapper>
